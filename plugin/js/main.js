@@ -11,7 +11,7 @@
 var websocket = null;
 
 // Global cache
-var cache = {};
+//var cache = {};
 
 // Global settings
 var globalSettings = {};
@@ -22,7 +22,7 @@ function connectElgatoStreamDeckSocket(inPort, inPluginUUID, inRegisterEvent, in
     var actions = {};
 
     // Create a cache
-    cache = new Cache();
+    //cache = new Cache();
 
     // Open the web socket to Stream Deck
     // Use 127.0.0.1 because Windows needs 300ms to resolve localhost
@@ -38,26 +38,26 @@ function connectElgatoStreamDeckSocket(inPort, inPluginUUID, inRegisterEvent, in
     }
 
     // Add event listener
-    document.addEventListener('newCacheAvailable', function() {
-        // When a new cache is available
-        Object.keys(actions).forEach(function(inContext) {
-            // Inform all used actions that a new cache is available
-            actions[inContext].newCacheAvailable(function() {
-                var action;
+    // document.addEventListener('newCacheAvailable', function() {
+    //     // When a new cache is available
+    //     Object.keys(actions).forEach(function(inContext) {
+    //         // Inform all used actions that a new cache is available
+    //         actions[inContext].newCacheAvailable(function() {
+    //             var action;
 
-                // Find out type of action
-                if (actions[inContext] instanceof PlatformEventSendAction) {
-                    action = 'uk.co.carlrcarter.salesforce.sendplatformevent';
-                }
-                //else if (actions[inContext] instanceof ColorAction) {
-                //    action = 'com.elgato.philips-hue.color';
-                //}
+    //             // Find out type of action
+    //             if (actions[inContext] instanceof PlatformEventSendAction) {
+    //                 action = 'uk.co.carlrcarter.salesforce.sendplatformevent';
+    //             }
+    //             //else if (actions[inContext] instanceof ColorAction) {
+    //             //    action = 'com.elgato.philips-hue.color';
+    //             //}
 
-                // Inform PI of new cache
-                sendToPropertyInspector(action, inContext, cache.data);
-            });
-        });
-    }, false);
+    //             // Inform PI of new cache
+    //             sendToPropertyInspector(action, inContext, cache.data);
+    //         });
+    //     });
+    // }, false);
 
     // Web socked received a message
     websocket.onmessage = function(inEvent) {
@@ -84,16 +84,16 @@ function connectElgatoStreamDeckSocket(inPort, inPluginUUID, inRegisterEvent, in
             }
 
             // Refresh the cache
-            cache.refresh();
+            //cache.refresh();
         }
         else if(event === 'willAppear') {
             settings = jsonPayload['settings'];
 
             // If this is the first visible action
-            if(Object.keys(actions).length === 0) {
-                // Start polling
-                cache.startPolling();
-            }
+            // if(Object.keys(actions).length === 0) {
+            //     // Start polling
+            //     cache.startPolling();
+            // }
 
             // Add current instance is not in actions array
             if (!(context in actions)) {
@@ -112,21 +112,21 @@ function connectElgatoStreamDeckSocket(inPort, inPluginUUID, inRegisterEvent, in
                 delete actions[context];
             }
 
-            // If this is the last visible action
-            if(Object.keys(actions).length === 0) {
-                // Stop polling
-                cache.stopPolling();
-            }
+            // // If this is the last visible action
+            // if(Object.keys(actions).length === 0) {
+            //     // Stop polling
+            //     cache.stopPolling();
+            // }
         }
         else if(event === 'didReceiveGlobalSettings') {
             // Set global settings
             globalSettings = jsonPayload['settings'];
 
             // If at least one action is active
-            if(Object.keys(actions).length > 0) {
-                // Refresh the cache
-                cache.refresh();
-            }
+            // if(Object.keys(actions).length > 0) {
+            //     // Refresh the cache
+            //     cache.refresh();
+            // }
         }
         else if(event === 'didReceiveSettings') {
             settings = jsonPayload['settings'];
@@ -137,7 +137,7 @@ function connectElgatoStreamDeckSocket(inPort, inPluginUUID, inRegisterEvent, in
             }
 
             // Refresh the cache
-            cache.refresh();
+            // cache.refresh();
         }
         else if(event === 'propertyInspectorDidAppear') {
             // Send cache to PI
