@@ -71,7 +71,7 @@ function PlatformEventSendAction(inContext, inSettings) {
         console.log("event: " + inSettings.eventApiName);
         console.log("payLoad: " + inSettings.eventPayload);
 
-        conn.login(jinSettings.username, inSettings.password, function(err, userInfo) {    
+        conn.login(inSettings.username, inSettings.password, function(err, userInfo) {    
             if (err) { return console.error(err); }
             // Now you can get the access token and instance URL information.
             // Save them to establish connection next time.
