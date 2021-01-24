@@ -9,6 +9,7 @@
 
 // Prototype which represents a scene action
 function PlatformEventSendAction(inContext, inSettings) {
+
     // Init SceneAction
     var instance = this;
 
@@ -25,154 +26,150 @@ function PlatformEventSendAction(inContext, inSettings) {
             inSettings = instance.getSettings();
         }
 
-        // Check if any bridge is configured
-        if (!('bridge' in inSettings)) {
-            log('No bridge configured');
+        console.log(`[onKeyUp] ${JSON.stringify(inSettings)}`);
+        
+        // If no orgUrl is set for this action
+        if (!('orgUrl' in inSettings)) {
+            log('orgUrl ' + inSettings.orgUrl + ' not found in cache');
             showAlert(inContext);
             return;
         }
 
-        // Check if the configured bridge is in the cache
-        if (!(inSettings.bridge in cache.data)) {
-            log('Bridge ' + inSettings.bridge + ' not found in cache');
+        // If no username is set for this action
+        if (!('username' in inSettings)) {
+            log('username ' + inSettings.username + ' not found in cache');
             showAlert(inContext);
             return;
         }
 
-        // Find the configured bridge
-        var bridgeCache = cache.data[inSettings.bridge];
-
-        // Check if any light is configured
-        if (!('light' in inSettings)) {
-            log('No group configured');
+        // If no password is set for this action
+        if (!('password' in inSettings)) {
+            log('password ' + inSettings.password + ' not found in cache');
             showAlert(inContext);
             return;
         }
 
-        // Check if the light was set to a group
-        if (!(inSettings.light.indexOf('g-') !== -1)) {
-            log('A light is set, not a group');
+        // If no eventApiName is set for this action
+        if (!('eventApiName' in inSettings)) {
+            log('eventApiName ' + inSettings.eventApiName + ' not found in cache');
             showAlert(inContext);
             return;
         }
 
-        // Check if the configured group is in the cache
-        if (!(inSettings.light in bridgeCache.groups)) {
-            log('Group ' + inSettings.light + ' not found in cache');
+        // If no eventPayload is set for this action
+        if (!('eventPayload' in inSettings)) {
+            log('eventPayload ' + inSettings.eventPayload + ' not found in cache');
             showAlert(inContext);
             return;
         }
 
-        // Find the configured group
-        var groupCache = bridgeCache.groups[inSettings.light];
+        var conn = new jsforce.Connection({
+          // you can change loginUrl to connect to sandbox or prerelease env.
+          loginUrl : inSettings.orgUrl
+        });
 
-        // Check if any scene is configured
-        if (!('scene' in inSettings)) {
-            log('No scene configured');
-            showAlert(inContext);
-            return;
-        }
+        console.log("event: " + inSettings.eventApiName);
+        console.log("payLoad: " + inSettings.eventPayload);
 
-        // Check if the configured scene is in the group cache
-        if (!(inSettings.scene in groupCache.scenes)) {
-            log('Scene ' + inSettings.scene + ' not found in cache');
-            showAlert(inContext);
-            return;
-        }
-
-        // Find the configured scene
-        var sceneCache = groupCache.scenes[inSettings.scene];
-
-        // Create a bridge instance
-        var bridge = new Bridge(bridgeCache.ip, bridgeCache.id, bridgeCache.username);
-
-        // Create a scene instance
-        var scene = new Scene(bridge, sceneCache.id);
-
-        // Set scene
-        scene.on(function(inSuccess, inError) {
-            // Check if setting the scene was successful
-            if (!(inSuccess)) {
-                log(inError);
-                showAlert(inContext);
+        conn.login(jinSettings.username, inSettings.password, function(err, userInfo) {    
+            if (err) { return console.error(err); }
+            // Now you can get the access token and instance URL information.
+            // Save them to establish connection next time.
+            //console.log(conn.accessToken);
+            //console.log(conn.instanceUrl);
+            // logged in user property
+            console.log("User ID: " + userInfo.id);
+            console.log("Org ID: " + userInfo.organizationId);
+            // ...
+            /**
+            const leadData = {
+                FirstName: 'Carl',
+                LastName: 'Carter',
+                Status: 'New',
+                FinServ__ReferredByUser__c: '0053z00000BTXFHAA5',
+                Company: 'ABC Limited'
+              };
+            conn.sobject('Lead').create(leadData, (err, res) => {
+            if (err) {
+                console.log("error: " + err);
+                } else {
+                    console.log("Lead Created");
+                }
+            });
+            **/
+            
+            conn.sobject(inSettings.eventApiName).create(JSON.parse(inSettings.eventPayload), (err, res) => {
+            if (err) {
+                console.log("error: " + err);
+            } else {
+                console.log("Event published");
             }
+            });
         });
+        
     };
 
-    // Before overwriting parent method, save a copy of it
-    var actionNewCacheAvailable = this.newCacheAvailable;
-
-    // Public function called when new cache is available
-    this.newCacheAvailable = function(inCallback) {
-        // Call actions newCacheAvailable method
-        actionNewCacheAvailable.call(instance, function() {
-            // Set defaults
-            setDefaults();
-
-            // Call the callback function
-            inCallback();
-        });
-    };
 
     // Private function to set the defaults
     function setDefaults() {
-        // Get the settings and the context
-        var settings = instance.getSettings();
-        var context = instance.getContext();
 
-        // Check if any bridge is configured
-        if (!('bridge' in settings)) {
-            return;
-        }
+        // // Get the settings and the context
+        // var settings = instance.getSettings();
+        // var context = instance.getContext();
 
-        // Check if the configured bridge is in the cache
-        if (!(settings.bridge in cache.data)) {
-            return;
-        }
+        // // Check if any bridge is configured
+        // if (!('bridge' in settings)) {
+        //     return;
+        // }
 
-        // Find the configured bridge
-        var bridgeCache = cache.data[settings.bridge];
+        // // Check if the configured bridge is in the cache
+        // if (!(settings.bridge in cache.data)) {
+        //     return;
+        // }
 
-        // Check if a light was set for this action
-        if (!('light' in settings)) {
-            return;
-        }
+        // // Find the configured bridge
+        // var bridgeCache = cache.data[settings.bridge];
 
-        // Check if the light was set to a group
-        if (!(settings.light.indexOf('g-') !== -1)) {
-            return;
-        }
+        // // Check if a light was set for this action
+        // if (!('light' in settings)) {
+        //     return;
+        // }
 
-        // Check if the configured group is in the cache
-        if (!(settings.light in bridgeCache.groups)) {
-            return;
-        }
+        // // Check if the light was set to a group
+        // if (!(settings.light.indexOf('g-') !== -1)) {
+        //     return;
+        // }
 
-        // Find the configured group
-        var groupCache = bridgeCache.groups[settings.light];
+        // // Check if the configured group is in the cache
+        // if (!(settings.light in bridgeCache.groups)) {
+        //     return;
+        // }
 
-        // Check if a scene was configured for this action
-        if ('scene' in settings) {
-            // Check if the scene is part of the set group
-            if (settings.scene in groupCache.scenes) {
-                return;
-            }
-        }
+        // // Find the configured group
+        // var groupCache = bridgeCache.groups[settings.light];
 
-        // Check if the group has at least one scene
-        if (!(Object.keys(groupCache.scenes).length > 0)) {
-            return;
-        }
+        // // Check if a scene was configured for this action
+        // if ('scene' in settings) {
+        //     // Check if the scene is part of the set group
+        //     if (settings.scene in groupCache.scenes) {
+        //         return;
+        //     }
+        // }
 
-        // Sort the scenes alphabetically
-        var sceneIDsSorted = Object.keys(groupCache.scenes).sort(function(a, b) {
-            return groupCache.scenes[a].name.localeCompare(groupCache.scenes[b].name);
-        });
+        // // Check if the group has at least one scene
+        // if (!(Object.keys(groupCache.scenes).length > 0)) {
+        //     return;
+        // }
 
-        // Set the action automatically to the first one
-        settings.scene = sceneIDsSorted[0];
+        // // Sort the scenes alphabetically
+        // var sceneIDsSorted = Object.keys(groupCache.scenes).sort(function(a, b) {
+        //     return groupCache.scenes[a].name.localeCompare(groupCache.scenes[b].name);
+        // });
 
-        // Save the settings
-        saveSettings('com.elgato.philips-hue.scene', context, settings);
+        // // Set the action automatically to the first one
+        // settings.scene = sceneIDsSorted[0];
+
+        // // Save the settings
+        // saveSettings('uk.co.carlrcarter.salesforce.sendplatformevent', context, settings);
     }
 }

@@ -1,90 +1,14 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
     <head>
-        <title>uk.co.carlrcarter.salesforce.sendplatformevent</title>
         <meta charset="utf-8" />
-    </head>
-    <body>
-        <script src="common.js"></script>
+        <title>uk.co.carlrcarter.salesforce</title>
+        <link rel="stylesheet" href="../sdpi.css">
+        <script src="../shared/js/common.js"></script>
+        <script src="../shared/js/utils.js"></script>
+        <script src="js/platformEventSendPI.js"></script>
+        <script src="js/pi.js"></script>
+        <script src="js/main.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jsforce/1.10.0/jsforce.min.js"></script>
-        <script>
-                $SD.on('connected', (jsonObj) => connected(jsonObj));
-
-                function connected(jsonObj) {
-                    console.log(`[connected] ${JSON.stringify(jsonObj)}`);
-                    $SD.on('uk.co.carlrcarter.salesforce.sendplatformevent.willAppear', (jsonObj) => action.onWillAppear(jsonObj));
-                    $SD.on('uk.co.carlrcarter.salesforce.sendplatformevent.keyUp', (jsonObj) => action.onKeyUp(jsonObj));
-                    $SD.on('uk.co.carlrcarter.salesforce.sendplatformevent.didReceiveSettings', (jsonObj) => action.onDidReceiveSettings(jsonObj));
-                    $SD.on('uk.co.carlrcarter.salesforce.sendplatformevent.propertyInspectorDidAppear', (jsonObj) => {});
-                    $SD.on('uk.co.carlrcarter.salesforce.sendplatformevent.propertyInspectorDidDisappear', (jsonObj) => {});
-                    $SD.on('uk.co.carlrcarter.salesforce.sendplatformevent.sendToPlugin', (jsonObj) => action.onSendToPlugin(jsonObj));
-                };
-
-                const action = {
-                    onDidReceiveSettings: (jsonObj) => {
-                        console.log(`[onDidReceiveMessage] ${JSON.stringify(jsonObj)}`);
-                    },
-                    onWillAppear: (jsonObj) => {
-                        console.log(`[onWillAppear] ${JSON.stringify(jsonObj)}`);
-                        $SD.api.sendToPropertyInspector(jsonObj.context, Utils.getProp(jsonObj, "payload.settings", {}), jsonObj.action);
-                    },
-                    onSendToPlugin: (jsonObj) => {
-                        console.log(`[onSendToPlugin] ${JSON.stringify(jsonObj)}`);
-                        if(jsonObj.payload) {
-                            $SD.api.setSettings(jsonObj.context, jsonObj.payload);
-                        }
-                    },
-                    onKeyUp: (jsonObj) => {
-                        console.log(`[onKeyUp] ${JSON.stringify(jsonObj)}`);
-                        if (!jsonObj.payload.settings || !jsonObj.payload.settings.orgUrl) {
-                            $SD.api.showAlert(jsonObj.context);
-                            return;
-                        }
-
-                        var conn = new jsforce.Connection({
-                          // you can change loginUrl to connect to sandbox or prerelease env.
-                          loginUrl : jsonObj.payload.settings.orgUrl
-                        });
-                        console.log("event: " + jsonObj.payload.settings.eventApiName);
-                        console.log("payLoad: " + jsonObj.payload.settings.eventPayload);
-                        conn.login(jsonObj.payload.settings.username, jsonObj.payload.settings.password, function(err, userInfo) {    
-                            if (err) { return console.error(err); }
-                            // Now you can get the access token and instance URL information.
-                            // Save them to establish connection next time.
-                            //console.log(conn.accessToken);
-                            //console.log(conn.instanceUrl);
-                            // logged in user property
-                            console.log("User ID: " + userInfo.id);
-                            console.log("Org ID: " + userInfo.organizationId);
-                            // ...
-                            /**
-                            const leadData = {
-                                FirstName: 'Carl',
-                                LastName: 'Carter',
-                                Status: 'New',
-                                FinServ__ReferredByUser__c: '0053z00000BTXFHAA5',
-                                Company: 'ABC Limited'
-                              };
-
-                            conn.sobject('Lead').create(leadData, (err, res) => {
-                            if (err) {
-                                console.log("error: " + err);
-                                } else {
-                                    console.log("Lead Created");
-                                }
-                            });
-                            **/
-                            
-                            conn.sobject(jsonObj.payload.settings.eventApiName).create(JSON.parse(jsonObj.payload.settings.eventPayload), (err, res) => {
-                            if (err) {
-                                console.log("error: " + err);
-                            } else {
-                                console.log("Event published");
-                            }
-                            });
-                        });
-                    }
-                };
-        </script>
-    </body>
+    </head>
 </html>
