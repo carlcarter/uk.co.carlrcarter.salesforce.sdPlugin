@@ -12,19 +12,33 @@
             ],
             "SupportedInMultiActions": true,
             "Tooltip": "Send a platform event object",
-            "UUID": "com.salesforceukisefins.salesforce.sendplatformevent"
+            "UUID": "uk.co.carlrcarter.salesforce.sendplatformevent"
+        },
+        {
+            "Icon": "resources/actionIcon",
+            "Name": "Get Chatter Likes",
+            "States": [
+                {
+                    "Image": "resources/actionDefaultImage",
+                    "TitleAlignment": "bottom",
+                    "FontSize": "10"
+                }
+            ],
+            "SupportedInMultiActions": true,
+            "Tooltip": "Get Number of Likes on a Chatter Post",
+            "UUID": "uk.co.carlrcarter.salesforce.chatterpostlikes"
         }
     ],
     "SDKVersion": 2,
     "Author": "Carl Carter",
-    "Category": "Salesforce-Ori",
+    "Category": "Salesforce",
     "CategoryIcon": "resources/salesforce",
-    "CodePath": "main.html",
+    "CodePath": "plugin/index.html",
     "Description": "Send a platform event object to Salesforce",
     "Name": "Platform Event",
     "Icon": "resources/salesforce",
     "URL": "https://www.linkedin.com/in/carlcarter1",
-    "PropertyInspectorPath": "propertyinspector.html",
+    "PropertyInspectorPath": "pi/index.html",
     "Version": "1.0",
     "OS": [
         {

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>com.salesforceukisefins.salesforce.sendplatformevent</title>
+        <title>uk.co.carlrcarter.salesforce.sendplatformevent</title>
         <meta charset="utf-8" />
     </head>
     <body>
@@ -12,12 +12,12 @@
 
                 function connected(jsonObj) {
                     console.log(`[connected] ${JSON.stringify(jsonObj)}`);
-                    $SD.on('com.salesforceukisefins.salesforce.sendplatformevent.willAppear', (jsonObj) => action.onWillAppear(jsonObj));
-                    $SD.on('com.salesforceukisefins.salesforce.sendplatformevent.keyUp', (jsonObj) => action.onKeyUp(jsonObj));
-                    $SD.on('com.salesforceukisefins.salesforce.sendplatformevent.didReceiveSettings', (jsonObj) => action.onDidReceiveSettings(jsonObj));
-                    $SD.on('com.salesforceukisefins.salesforce.sendplatformevent.propertyInspectorDidAppear', (jsonObj) => {});
-                    $SD.on('com.salesforceukisefins.salesforce.sendplatformevent.propertyInspectorDidDisappear', (jsonObj) => {});
-                    $SD.on('com.salesforceukisefins.salesforce.sendplatformevent.sendToPlugin', (jsonObj) => action.onSendToPlugin(jsonObj));
+                    $SD.on('uk.co.carlrcarter.salesforce.sendplatformevent.willAppear', (jsonObj) => action.onWillAppear(jsonObj));
+                    $SD.on('uk.co.carlrcarter.salesforce.sendplatformevent.keyUp', (jsonObj) => action.onKeyUp(jsonObj));
+                    $SD.on('uk.co.carlrcarter.salesforce.sendplatformevent.didReceiveSettings', (jsonObj) => action.onDidReceiveSettings(jsonObj));
+                    $SD.on('uk.co.carlrcarter.salesforce.sendplatformevent.propertyInspectorDidAppear', (jsonObj) => {});
+                    $SD.on('uk.co.carlrcarter.salesforce.sendplatformevent.propertyInspectorDidDisappear', (jsonObj) => {});
+                    $SD.on('uk.co.carlrcarter.salesforce.sendplatformevent.sendToPlugin', (jsonObj) => action.onSendToPlugin(jsonObj));
                 };
 
                 const action = {
