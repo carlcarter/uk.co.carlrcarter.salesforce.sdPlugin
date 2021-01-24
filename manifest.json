@@ -1,0 +1,42 @@
+{
+    "Actions": [
+        {
+            "Icon": "resources/actionIcon",
+            "Name": "Send Platform Event",
+            "States": [
+                {
+                    "Image": "resources/actionDefaultImage",
+                    "TitleAlignment": "bottom",
+                    "FontSize": "10"
+                }
+            ],
+            "SupportedInMultiActions": true,
+            "Tooltip": "Send a platform event object",
+            "UUID": "com.salesforceukisefins.salesforce.sendplatformevent"
+        }
+    ],
+    "SDKVersion": 2,
+    "Author": "Carl Carter",
+    "Category": "Salesforce-Ori",
+    "CategoryIcon": "resources/salesforce",
+    "CodePath": "main.html",
+    "Description": "Send a platform event object to Salesforce",
+    "Name": "Platform Event",
+    "Icon": "resources/salesforce",
+    "URL": "https://www.linkedin.com/in/carlcarter1",
+    "PropertyInspectorPath": "propertyinspector.html",
+    "Version": "1.0",
+    "OS": [
+        {
+            "Platform": "mac",
+            "MinimumVersion": "10.11"
+        },
+        {
+            "Platform": "windows",
+            "MinimumVersion": "10"
+        }
+    ],
+    "Software": {
+        "MinimumVersion" : "4.1"
+    }
+}

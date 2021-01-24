@@ -1,0 +1,14 @@
+{
+    "Name": "Salesforce",
+    "Category": "Salesforce",
+    "Description": "Control Salesforce from Stream Deck.",
+    "uk.co.carlrcarter.salesforce.sendplatformevent": {
+      "Name": "Send Platform Event",
+      "Tooltip": "Send a platform event object",
+      "States": [{
+        "Name": "On"
+      }]
+    }
+
+  }
+  
