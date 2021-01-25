@@ -5,7 +5,7 @@
 **/
 //==============================================================================
 
-function createLeadPI(inContext, inLanguage, inStreamDeckVersion, inPluginVersion) {
+function CreateLeadPI(inContext, inLanguage, inStreamDeckVersion, inPluginVersion) {
     // Init PlatformEventSendPI
     var instance = this;
     console.log("createLeadPI.js: createLeadPI");
