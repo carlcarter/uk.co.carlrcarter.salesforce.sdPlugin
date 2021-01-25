@@ -28,14 +28,21 @@ function PI(inContext, inLanguage, inStreamDeckVersion, inPluginVersion) {
         document.getElementById('orgUrl').value = settings.orgUrl || "https://" ;
         document.getElementById('username').value = settings.username || "example@salesforcedev.com";
         document.getElementById('password').value = settings.password || "*******";
+
+        //Send Platform Event Variables
         document.getElementById('eventApiName').value = settings.eventApiName || "Custom_Event__e";
         document.getElementById('eventPayload').value = settings.eventPayload || "{'Field': 'Value'}";
+        
+        //Create Lead Variables
+        document.getElementById('leadFirstName').value = settings.leadFirstName || "John";
+        document.getElementById('leadLastName').value = settings.leadLastName || "Smith";
+        document.getElementById('leadStatus').value = settings.leadStatus || "New";
+        document.getElementById('leadCompanyName').value = settings.leadCompanyName || "ABC Limited";
 
     }
 
     // OrgURL select changed
     function orgURLChanged(inEvent) {
-        console.log("pi.js: orgURLChanged");
         settings.orgUrl = inEvent.target.value;
         instance.saveSettings();
         instance.loadData();
@@ -43,19 +50,18 @@ function PI(inContext, inLanguage, inStreamDeckVersion, inPluginVersion) {
 
     // Username select changed
     function usernameChanged(inEvent) {
-        console.log("pi.js: usernameChanged");
         settings.username = inEvent.target.value;
         instance.saveSettings();
         instance.loadData();
     }
 
-    // OrgURL select changed
+    // Password select changed
     function passwordChanged(inEvent) {
-        console.log("pi.js: passwordChanged");
         settings.password = inEvent.target.value;
         instance.saveSettings();
         instance.loadData();
     }
+
 
     // Private function to return the action identifier
     function getAction() {
@@ -65,9 +71,9 @@ function PI(inContext, inLanguage, inStreamDeckVersion, inPluginVersion) {
         if (instance instanceof PlatformEventSendPI) {
             action = 'uk.co.carlrcarter.salesforce.sendplatformevent';
         }
-        //else if (instance instanceof ChatterPostLikesPI) {
-        //    action = 'uk.co.carlrcarter.salesforce.chatterPostLikes';
-        //}
+        else if (instance instanceof CreateLeadPI) {
+            action = 'uk.co.carlrcarter.salesforce.createlead';
+        }
 
         return action;
     }

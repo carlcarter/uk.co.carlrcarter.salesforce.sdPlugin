@@ -16,7 +16,7 @@
         },
         {
             "Icon": "resources/actionIcon",
-            "Name": "Get Chatter Likes",
+            "Name": "Create Lead",
             "States": [
                 {
                     "Image": "resources/actionDefaultImage",
@@ -25,8 +25,8 @@
                 }
             ],
             "SupportedInMultiActions": true,
-            "Tooltip": "Get Number of Likes on a Chatter Post",
-            "UUID": "uk.co.carlrcarter.salesforce.chatterpostlikes"
+            "Tooltip": "Create a Lead",
+            "UUID": "uk.co.carlrcarter.salesforce.createlead"
         }
     ],
     "SDKVersion": 2,

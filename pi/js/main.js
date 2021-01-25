@@ -1,9 +1,7 @@
 //==============================================================================
 /**
 @file       main.js
-@brief      Philips Hue Plugin
-@copyright  (c) 2019, Corsair Memory, Inc.
-            This source code is licensed under the MIT-style license found in the LICENSE file.
+@brief      Salesforce Plugin
 **/
 //==============================================================================
 
@@ -21,8 +19,6 @@ var cache = {};
 
 // Setup the websocket and handle communication
 function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, inActionInfo) {
-
-    console.log("main.js: connectElgatoStreamDeckSocket");
 
     // Parse parameter from string to object
     var actionInfo = JSON.parse(inActionInfo);
@@ -60,9 +56,9 @@ function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, 
         console.log("main.js: action set");
         pi = new PlatformEventSendPI(inUUID, language, streamDeckVersion, pluginVersion);
     }
-    //else if (action === 'uk.co.carlrcarter.salesforce.sendplatformevent') {
-    //    pi = new ColorPI(inUUID, language, streamDeckVersion, pluginVersion);
-    //}
+    else if (action === 'uk.co.carlrcarter.salesforce.createlead') {
+        pi = new CreateLeadPI(inUUID, language, streamDeckVersion, pluginVersion);
+    }
 
     websocket.onmessage = function(evt) {
 
