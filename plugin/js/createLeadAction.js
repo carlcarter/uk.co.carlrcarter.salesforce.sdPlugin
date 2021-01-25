@@ -1,12 +1,12 @@
 //==============================================================================
 /**
-@file       platformEventSendAction.js
+@file       createLeadAction.js
 @brief      Salesforce Plugin
 **/
 //==============================================================================
 
 // Prototype which represents a scene action
-function PlatformEventSendAction(inContext, inSettings) {
+function CreateLeadAction(inContext, inSettings) {
 
     // Init SceneAction
     var instance = this;
@@ -47,16 +47,30 @@ function PlatformEventSendAction(inContext, inSettings) {
             return;
         }
 
-        // If no eventApiName is set for this action
-        if (!('eventApiName' in inSettings)) {
-            log('eventApiName ' + inSettings.eventApiName + ' not found in cache');
+        // If no leadFirstName is set for this action
+        if (!('leadFirstName' in inSettings)) {
+            log('leadFirstName ' + inSettings.leadFirstName + ' not found in cache');
             showAlert(inContext);
             return;
         }
 
-        // If no eventPayload is set for this action
-        if (!('eventPayload' in inSettings)) {
-            log('eventPayload ' + inSettings.eventPayload + ' not found in cache');
+        // If no leadLastName is set for this action
+        if (!('leadLastName' in inSettings)) {
+            log('leadLastName ' + inSettings.leadLastName + ' not found in cache');
+            showAlert(inContext);
+            return;
+        }
+
+        // If no leadStatus is set for this action
+        if (!('leadStatus' in inSettings)) {
+            log('leadStatus ' + inSettings.leadStatus + ' not found in cache');
+            showAlert(inContext);
+            return;
+        } 
+        
+        // If no leadCompanyName is set for this action
+        if (!('leadCompanyName' in inSettings)) {
+            log('leadCompanyName ' + inSettings.leadCompanyName + ' not found in cache');
             showAlert(inContext);
             return;
         }
@@ -65,9 +79,6 @@ function PlatformEventSendAction(inContext, inSettings) {
           // you can change loginUrl to connect to sandbox or prerelease env.
           loginUrl : inSettings.orgUrl
         });
-
-        console.log("event: " + inSettings.eventApiName);
-        console.log("payLoad: " + inSettings.eventPayload);
 
         conn.login(inSettings.username, inSettings.password, function(err, userInfo) {    
             if (err) { return console.error(err); }
@@ -80,14 +91,22 @@ function PlatformEventSendAction(inContext, inSettings) {
             console.log("Org ID: " + userInfo.organizationId);
             // ...
             
-            conn.sobject(inSettings.eventApiName).create(JSON.parse(inSettings.eventPayload), (err, res) => {
-                if (err) {
-                    console.log("error: " + err);
+            const leadData = {
+                FirstName: inSettings.leadFirstName,
+                LastName: inSettings.leadLastName,
+                Status: inSettings.leadStatus,
+                FinServ__ReferredByUser__c: userInfo.id,
+                Company: inSettings.leadCompanyName
+            };
+
+            conn.sobject('Lead').create(leadData, (err, res) => {
+            if (err) {
+                console.log("error: " + err);
                 } else {
-                    console.log("Event published");
+                    console.log("Lead Created");
                 }
-                });
-        
+            });
+            
         });
         
     };

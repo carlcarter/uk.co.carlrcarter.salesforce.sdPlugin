@@ -29,15 +29,18 @@ function PI(inContext, inLanguage, inStreamDeckVersion, inPluginVersion) {
         document.getElementById('username').value = settings.username || "example@salesforcedev.com";
         document.getElementById('password').value = settings.password || "*******";
 
-        //Send Platform Event Variables
-        document.getElementById('eventApiName').value = settings.eventApiName || "Custom_Event__e";
-        document.getElementById('eventPayload').value = settings.eventPayload || "{'Field': 'Value'}";
-        
-        //Create Lead Variables
-        document.getElementById('leadFirstName').value = settings.leadFirstName || "John";
-        document.getElementById('leadLastName').value = settings.leadLastName || "Smith";
-        document.getElementById('leadStatus').value = settings.leadStatus || "New";
-        document.getElementById('leadCompanyName').value = settings.leadCompanyName || "ABC Limited";
+        if (instance instanceof PlatformEventSendPI) {
+            //Send Platform Event Variables
+            document.getElementById('eventApiName').value = settings.eventApiName || "Custom_Event__e";
+            document.getElementById('eventPayload').value = settings.eventPayload || "{'Field': 'Value'}";
+        }
+        else if (instance instanceof CreateLeadPI) {
+            //Create Lead Variables
+            document.getElementById('leadFirstName').value = settings.leadFirstName || "John";
+            document.getElementById('leadLastName').value = settings.leadLastName || "Smith";
+            document.getElementById('leadStatus').value = settings.leadStatus || "New";
+            document.getElementById('leadCompanyName').value = settings.leadCompanyName || "ABC Limited";
+        }
 
     }
 

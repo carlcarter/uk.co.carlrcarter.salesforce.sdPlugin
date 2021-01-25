@@ -15,11 +15,11 @@
             "UUID": "uk.co.carlrcarter.salesforce.sendplatformevent"
         },
         {
-            "Icon": "resources/actionIcon",
+            "Icon": "resources/lead",
             "Name": "Create Lead",
             "States": [
                 {
-                    "Image": "resources/actionDefaultImage",
+                    "Image": "resources/lead",
                     "TitleAlignment": "bottom",
                     "FontSize": "10"
                 }

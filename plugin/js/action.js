@@ -1,9 +1,7 @@
 //==============================================================================
 /**
 @file       action.js
-@brief      Philips Hue Plugin
-@copyright  (c) 2019, Corsair Memory, Inc.
-            This source code is licensed under the MIT-style license found in the LICENSE file.
+@brief      Salesforce Plugin
 **/
 //==============================================================================
 
@@ -50,9 +48,9 @@ function Action(inContext, inSettings) {
         if (instance instanceof PlatformEventSendAction) {
             action = 'uk.co.carlrcarter.salesforce.sendplatformevent';
         }
-        //else if (instance instanceof ColorAction) {
-        //    action = 'com.elgato.philips-hue.color';
-        //}
+        else if (instance instanceof CreateLeadAction) {
+            action = 'uk.co.carlrcarter.salesforce.createlead';
+        }
         
         // If no orgUrl is set for this action
         if (!('orgUrl' in settings)) {
@@ -77,6 +75,26 @@ function Action(inContext, inSettings) {
         // If no eventPayload is set for this action
         if (!('eventPayload' in settings)) {
             settings.eventPayload = '';
+        }
+
+        // If no leadFirstName is set for this action
+        if (!('leadFirstName' in settings)) {
+            settings.leadFirstName = '';
+        }
+
+        // If no leadLastName is set for this action
+        if (!('leadLastName' in settings)) {
+            settings.leadLastName = '';
+        }
+
+        // If no leadStatus is set for this action
+        if (!('leadStatus' in settings)) {
+            settings.leadStatus = '';
+        }
+
+        // If no leadCompanyName is set for this action
+        if (!('leadCompanyName' in settings)) {
+            settings.leadCompanyName = '';
         }
         
         // Save the settings

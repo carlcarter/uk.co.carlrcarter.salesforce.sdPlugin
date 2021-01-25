@@ -1,9 +1,7 @@
 //==============================================================================
 /**
 @file       main.js
-@brief      Philips Hue Plugin
-@copyright  (c) 2019, Corsair Memory, Inc.
-            This source code is licensed under the MIT-style license found in the LICENSE file.
+@brief      Salesforce Plugin
 **/
 //==============================================================================
 
@@ -101,9 +99,9 @@ function connectElgatoStreamDeckSocket(inPort, inPluginUUID, inRegisterEvent, in
                 if(action === 'uk.co.carlrcarter.salesforce.sendplatformevent') {
                     actions[context] = new PlatformEventSendAction(context, settings);
                 }
-                //else if(action === 'com.elgato.philips-hue.color') {
-                //    actions[context] = new ColorAction(context, settings);
-                //}
+                else if(action === 'uk.co.carlrcarter.salesforce.createlead') {
+                    actions[context] = new CreateLeadAction(context, settings);
+                }
             }
         }
         else if(event === 'willDisappear') {
