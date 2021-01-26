@@ -151,9 +151,9 @@ function connectElgatoStreamDeckSocket(inPort, inPluginUUID, inRegisterEvent, in
                 // Only color, brightness and scene support live preview
                 //if(action !== 'com.elgato.philips-hue.power' && action !== 'com.elgato.philips-hue.cycle') {
                     // Send manual onKeyUp event to action
-                    if (context in actions) {
-                        actions[context].onKeyUp(context);
-                    }
+                    // if (context in actions) {
+                    //     actions[context].onKeyUp(context);
+                    // }
                 //}
             //}
         }
