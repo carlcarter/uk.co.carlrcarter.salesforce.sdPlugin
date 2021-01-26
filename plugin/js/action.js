@@ -51,6 +51,9 @@ function Action(inContext, inSettings) {
         else if (instance instanceof CreateLeadAction) {
             action = 'uk.co.carlrcarter.salesforce.createlead';
         }
+        else if (instance instanceof CreateChatterPostAction) {
+            action = 'uk.co.carlrcarter.salesforce.createchatterpost';
+        }
         
         // If no orgUrl is set for this action
         if (!('orgUrl' in settings)) {
@@ -95,6 +98,21 @@ function Action(inContext, inSettings) {
         // If no leadCompanyName is set for this action
         if (!('leadCompanyName' in settings)) {
             settings.leadCompanyName = '';
+        }
+
+        // If no chatterText is set for this action
+        if (!('chatterText' in settings)) {
+            settings.chatterText = '';
+        }
+
+        // If no chatterMentionId is set for this action
+        if (!('chatterMentionId' in settings)) {
+            settings.chatterMentionId = '';
+        }
+
+        // If no chatterSubjectId is set for this action
+        if (!('chatterSubjectId' in settings)) {
+            settings.chatterSubjectId = '';
         }
         
         // Save the settings

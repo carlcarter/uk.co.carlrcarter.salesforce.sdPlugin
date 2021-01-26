@@ -102,6 +102,9 @@ function connectElgatoStreamDeckSocket(inPort, inPluginUUID, inRegisterEvent, in
                 else if(action === 'uk.co.carlrcarter.salesforce.createlead') {
                     actions[context] = new CreateLeadAction(context, settings);
                 }
+                else if(action === 'uk.co.carlrcarter.salesforce.createchatterpost') {
+                    actions[context] = new CreateChatterPostAction(context, settings);
+                }
             }
         }
         else if(event === 'willDisappear') {

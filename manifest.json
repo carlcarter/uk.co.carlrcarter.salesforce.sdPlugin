@@ -27,6 +27,20 @@
             "SupportedInMultiActions": true,
             "Tooltip": "Create a Lead",
             "UUID": "uk.co.carlrcarter.salesforce.createlead"
+        },
+        {
+            "Icon": "resources/lead",
+            "Name": "Post to Chatter",
+            "States": [
+                {
+                    "Image": "resources/lead",
+                    "TitleAlignment": "bottom",
+                    "FontSize": "10"
+                }
+            ],
+            "SupportedInMultiActions": true,
+            "Tooltip": "Create a Chatter post",
+            "UUID": "uk.co.carlrcarter.salesforce.createchatterpost"
         }
     ],
     "SDKVersion": 2,

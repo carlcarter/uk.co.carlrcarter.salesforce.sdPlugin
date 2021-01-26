@@ -41,6 +41,12 @@ function PI(inContext, inLanguage, inStreamDeckVersion, inPluginVersion) {
             document.getElementById('leadStatus').value = settings.leadStatus || "New";
             document.getElementById('leadCompanyName').value = settings.leadCompanyName || "ABC Limited";
         }
+        else if (instance instanceof CreateChatterPostPI) {
+            //Create Chatter Post Variables
+            document.getElementById('chatterText').value = settings.chatterText || "";
+            document.getElementById('chatterMentionId').value = settings.chatterMentionId || "";
+            document.getElementById('chatterSubjectId').value = settings.chatterSubjectId || "";
+        }
 
     }
 
@@ -76,6 +82,9 @@ function PI(inContext, inLanguage, inStreamDeckVersion, inPluginVersion) {
         }
         else if (instance instanceof CreateLeadPI) {
             action = 'uk.co.carlrcarter.salesforce.createlead';
+        }
+        else if (instance instanceof CreateChatterPostPI) {
+            action = 'uk.co.carlrcarter.salesforce.createchatterpost';
         }
 
         return action;
