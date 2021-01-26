@@ -83,16 +83,16 @@ function CreateChatterPostAction(inContext, inSettings) {
             console.log("User ID: " + userInfo.id);
             console.log("Org ID: " + userInfo.organizationId);
             // ...
-            // ,
-            //         {
-            //             type: 'Mention',
-            //             text: inSettings.chatterMentionId
-            //         }
+            
             const postData = {
                 body: {
                   messageSegments: [{
                         type: 'Text',
                         text: inSettings.chatterText
+                    },
+                    {
+                        type: 'Mention',
+                        id: inSettings.chatterMentionId
                     }
                   ]
                 },
