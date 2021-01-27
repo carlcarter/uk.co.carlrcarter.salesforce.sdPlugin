@@ -82,12 +82,12 @@ function PlatformEventSendAction(inContext, inSettings) {
             
             conn.sobject(inSettings.eventApiName).create(JSON.parse(inSettings.eventPayload), (err, res) => {
                 if (err) {
+                    showAlert(inContext);
                     console.log("error: " + err);
                 } else {
-                    console.log("Event published");
-                }
+                    showOK(inContext);
+                    console.log("Event published");}
                 });
-        
         });
         
     };

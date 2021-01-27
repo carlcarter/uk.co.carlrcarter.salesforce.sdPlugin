@@ -101,10 +101,12 @@ function CreateLeadAction(inContext, inSettings) {
 
             conn.sobject('Lead').create(leadData, (err, res) => {
             if (err) {
+                showAlert(inContext);
                 console.log("error: " + err);
-                } else {
-                    console.log("Lead Created");
-                }
+            } else {
+                showOK(inContext);
+                console.log("Lead Created");
+            }
             });
             
         });

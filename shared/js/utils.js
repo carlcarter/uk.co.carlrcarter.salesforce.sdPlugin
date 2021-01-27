@@ -90,6 +90,18 @@ function showAlert(inUUID) {
     }
 }
 
+// Show OK icon on the key
+function showOK(inUUID) {
+    if (websocket) {
+        var json = {
+            "event": "showOk",
+            "context": inUUID
+        };
+
+        websocket.send(JSON.stringify(json));
+    }
+}
+
 // Set the state of a key
 function setState(inContext, inState) {
     if (websocket) {

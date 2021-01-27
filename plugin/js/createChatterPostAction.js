@@ -101,11 +101,16 @@ function CreateChatterPostAction(inContext, inSettings) {
             };
 
             conn.chatter.resource('/feed-elements').create(postData, function(err, result) {
-                if (err) { return console.error(err); }
-                console.log("Id: " + result.id);
-                console.log("URL: " + result.url);
-                console.log("Body: " + result.body.messageSegments[0].text);
-                console.log("Comments URL: " + result.capabilities.comments.page.currentPageUrl);
+                if (err) {
+                    showAlert(inContext);
+                    console.log("error: " + err);
+                } else {
+                    showOK(inContext);
+                    console.log("Id: " + result.id);
+                    console.log("URL: " + result.url);
+                    console.log("Body: " + result.body.messageSegments[0].text);
+                    console.log("Comments URL: " + result.capabilities.comments.page.currentPageUrl);onsole.log("Lead Created");
+                }
               });
         });
     };
