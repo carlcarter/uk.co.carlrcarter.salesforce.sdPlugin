@@ -54,6 +54,9 @@ function Action(inContext, inSettings) {
         else if (instance instanceof CreateChatterPostAction) {
             action = 'uk.co.carlrcarter.salesforce.createchatterpost';
         }
+        else if (instance instanceof GenericRestAPICallAction) {
+            action = 'uk.co.carlrcarter.salesforce.genericrestapicall';
+        }
         
         // If no orgUrl is set for this action
         if (!('orgUrl' in settings)) {
@@ -113,6 +116,16 @@ function Action(inContext, inSettings) {
         // If no chatterSubjectId is set for this action
         if (!('chatterSubjectId' in settings)) {
             settings.chatterSubjectId = '';
+        }
+        
+        // If no restMethod is set for this action
+        if (!('restMethod' in settings)) {
+            settings.restMethod = '';
+        }
+
+        // If no restPayload is set for this action
+        if (!('restPayload' in settings)) {
+            settings.restPayload = '';
         }
         
         // Save the settings

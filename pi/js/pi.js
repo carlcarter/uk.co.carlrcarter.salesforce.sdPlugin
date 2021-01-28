@@ -47,6 +47,12 @@ function PI(inContext, inLanguage, inStreamDeckVersion, inPluginVersion) {
             document.getElementById('chatterMentionId').value = settings.chatterMentionId || "";
             document.getElementById('chatterSubjectId').value = settings.chatterSubjectId || "";
         }
+        else if (instance instanceof GenericRestAPICallPI) {
+            //Create Rest API Variables
+            document.getElementById('restAPIEndpoint').value = settings.restAPIEndpoint || "";
+            document.getElementById('restMethod').value = settings.restMethod || "";
+            document.getElementById('restPayload').value = settings.restPayload || "";
+        }
 
     }
 
@@ -85,6 +91,9 @@ function PI(inContext, inLanguage, inStreamDeckVersion, inPluginVersion) {
         }
         else if (instance instanceof CreateChatterPostPI) {
             action = 'uk.co.carlrcarter.salesforce.createchatterpost';
+        }
+        else if (instance instanceof GenericRestAPICallPI) {
+            action = 'uk.co.carlrcarter.salesforce.genericrestapicall';
         }
 
         return action;

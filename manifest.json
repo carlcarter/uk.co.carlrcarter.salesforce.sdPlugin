@@ -41,7 +41,22 @@
             "SupportedInMultiActions": true,
             "Tooltip": "Create a Chatter post",
             "UUID": "uk.co.carlrcarter.salesforce.createchatterpost"
+        },
+        {
+            "Icon": "resources/lead",
+            "Name": "Generic REST Call",
+            "States": [
+                {
+                    "Image": "resources/lead",
+                    "TitleAlignment": "bottom",
+                    "FontSize": "10"
+                }
+            ],
+            "SupportedInMultiActions": true,
+            "Tooltip": "Create a generic rest api call",
+            "UUID": "uk.co.carlrcarter.salesforce.genericrestapicall"
         }
+
     ],
     "SDKVersion": 2,
     "Author": "Carl Carter",
