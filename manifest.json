@@ -68,7 +68,7 @@
     "Icon": "resources/salesforce",
     "URL": "https://github.com/carlcarter/uk.co.carlrcarter.salesforce.sdPlugin",
     "PropertyInspectorPath": "pi/index.html",
-    "Version": "3.2.1",
+    "Version": "4.0",
     "OS": [
         {
             "Platform": "mac",

@@ -50,7 +50,6 @@ function PI(inContext, inLanguage, inStreamDeckVersion, inPluginVersion) {
         else if (instance instanceof GenericRestAPICallPI) {
             //Create Rest API Variables
             document.getElementById('restAPIEndpoint').value = settings.restAPIEndpoint || "";
-            document.getElementById('restMethod').value = settings.restMethod || "";
             document.getElementById('restPayload').value = settings.restPayload || "";
         }
 
