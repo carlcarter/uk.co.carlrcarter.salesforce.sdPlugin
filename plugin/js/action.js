@@ -117,11 +117,6 @@ function Action(inContext, inSettings) {
         if (!('chatterSubjectId' in settings)) {
             settings.chatterSubjectId = '';
         }
-        
-        // If no restMethod is set for this action
-        if (!('restMethod' in settings)) {
-            settings.restMethod = '';
-        }
 
         // If no restPayload is set for this action
         if (!('restPayload' in settings)) {

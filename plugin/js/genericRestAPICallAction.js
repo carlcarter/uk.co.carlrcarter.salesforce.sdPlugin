@@ -53,13 +53,6 @@ function GenericRestAPICallAction(inContext, inSettings) {
             showAlert(inContext);
             return;
         }
-        
-        // If no restMethod is set for this action
-        if (!('restMethod' in inSettings)) {
-            log('restMethod ' + inSettings.restMethod + ' not found in cache');
-            showAlert(inContext);
-            return;
-        }
 
         // If no restPayload is set for this action
         if (!('restPayload' in inSettings)) {
@@ -89,7 +82,7 @@ function GenericRestAPICallAction(inContext, inSettings) {
             // ...
            
             fetch(inSettings.restAPIEndpoint, {
-                "method": inSettings.restMethod,
+                "method": "POST",
                 "headers": {
                     "content-type": "application/json",
                     "Authorization": "Bearer " + conn.accessToken,
@@ -105,59 +98,6 @@ function GenericRestAPICallAction(inContext, inSettings) {
 
     // Private function to set the defaults
     function setDefaults() {
-
-        // // Get the settings and the context
-        // var settings = instance.getSettings();
-        // var context = instance.getContext();
-
-        // // Check if any bridge is configured
-        // if (!('bridge' in settings)) {
-        //     return;
-        // }
-
-        // // Check if the configured bridge is in the cache
-        // if (!(settings.bridge in cache.data)) {
-        //     return;
-        // }
-
-        // // Find the configured bridge
-        // var bridgeCache = cache.data[settings.bridge];
-
-        // // Check if a light was set for this action
-        // if (!('light' in settings)) {
-        //     return;
-        // }
-
-        // // Check if the light was set to a group
-        // if (!(settings.light.indexOf('g-') !== -1)) {
-        //     return;
-        // }
-
-        // // Check if the configured group is in the cache
-        // if (!(settings.light in bridgeCache.groups)) {
-        //     return;
-        // }
-
-        // // Find the configured group
-        // var groupCache = bridgeCache.groups[settings.light];
-
-        // // Check if a scene was configured for this action
-        // if ('scene' in settings) {
-        //     // Check if the scene is part of the set group
-        //     if (settings.scene in groupCache.scenes) {
-        //         return;
-        //     }
-        // }
-
-        // // Check if the group has at least one scene
-        // if (!(Object.keys(groupCache.scenes).length > 0)) {
-        //     return;
-        // }
-
-        // // Sort the scenes alphabetically
-        // var sceneIDsSorted = Object.keys(groupCache.scenes).sort(function(a, b) {
-        //     return groupCache.scenes[a].name.localeCompare(groupCache.scenes[b].name);
-        // });
 
         // // Set the action automatically to the first one
         // settings.scene = sceneIDsSorted[0];
