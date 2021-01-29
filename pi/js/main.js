@@ -53,7 +53,6 @@ function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, 
     var pi;
     
     if (action === 'uk.co.carlrcarter.salesforce.sendplatformevent') {
-        console.log("main.js: action set");
         pi = new PlatformEventSendPI(inUUID, language, streamDeckVersion, pluginVersion);
     }
     else if (action === 'uk.co.carlrcarter.salesforce.createlead') {
@@ -63,7 +62,7 @@ function connectElgatoStreamDeckSocket(inPort, inUUID, inRegisterEvent, inInfo, 
         pi = new CreateChatterPostPI(inUUID, language, streamDeckVersion, pluginVersion);
     }
     else if (action === 'uk.co.carlrcarter.salesforce.genericrestapicall') {
-        pi = new GenericRestAPICall(inUUID, language, streamDeckVersion, pluginVersion);
+        pi = new GenericRestAPICallPI(inUUID, language, streamDeckVersion, pluginVersion);
     }
 
     websocket.onmessage = function(evt) {

@@ -118,6 +118,11 @@ function Action(inContext, inSettings) {
             settings.chatterSubjectId = '';
         }
 
+        // If no restAPIEndpoint is set for this action
+        if (!('restAPIEndpoint' in settings)) {
+            settings.restAPIEndpoint = '';
+        }
+
         // If no restPayload is set for this action
         if (!('restPayload' in settings)) {
             settings.restPayload = '';

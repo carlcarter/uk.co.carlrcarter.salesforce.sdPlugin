@@ -5,7 +5,7 @@
 **/
 //==============================================================================
 
-function GenericRestAPICall(inContext, inLanguage, inStreamDeckVersion, inPluginVersion) {
+function GenericRestAPICallPI(inContext, inLanguage, inStreamDeckVersion, inPluginVersion) {
     
     // Init GenericRestAPICall
     var instance = this;
@@ -33,7 +33,7 @@ function GenericRestAPICall(inContext, inLanguage, inStreamDeckVersion, inPlugin
 
     // restAPIEndpoint changed
     function restAPIEndpointChanged(inEvent) {
-    
+        console.log('restAPIEndpointChanged');
         settings.restAPIEndpoint = inEvent.target.value;
         instance.saveSettings();
         instance.loadData();
@@ -45,7 +45,7 @@ function GenericRestAPICall(inContext, inLanguage, inStreamDeckVersion, inPlugin
 
     // restPayload select changed
     function restPayloadChanged(inEvent) {
-
+        console.log('restPayloadChanged');
         settings.restPayload = inEvent.target.value;
         instance.saveSettings();
         instance.loadData();

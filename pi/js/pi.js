@@ -14,7 +14,7 @@ function PI(inContext, inLanguage, inStreamDeckVersion, inPluginVersion) {
 
     // Public localizations for the UI
     this.localization = {};
-
+    console.log("pi.js: PI");
     // Add event listener
     document.getElementById('orgUrl').addEventListener('change', orgURLChanged);
     document.getElementById('username').addEventListener('change', usernameChanged);
