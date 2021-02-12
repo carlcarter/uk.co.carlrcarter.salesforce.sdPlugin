@@ -103,17 +103,56 @@ function CreateChatterPostAction(inContext, inSettings) {
             conn.chatter.resource('/feed-elements').create(postData, function(err, result) {
                 if (err) {
                     showAlert(inContext);
-                    console.log("error: " + err);
+                    log("error: " + err);
+                    slackLog(false, err);
                 } else {
                     showOK(inContext);
-                    console.log("Id: " + result.id);
-                    console.log("URL: " + result.url);
-                    console.log("Body: " + result.body.messageSegments[0].text);
-                    console.log("Comments URL: " + result.capabilities.comments.page.currentPageUrl);onsole.log("Lead Created");
+                    slackLog(true, result);
                 }
               });
         });
     };
+
+    function slackLog(success, result) {
+        
+        var firstField = '';
+        var secondField = '';
+
+        if (success) {
+            firstField = "*Status:*\nSuccess :thumbsup:"
+            secondField = "*Link:*\n<" + inSettings.orgUrl + '/' + result.id  + "|View Record>"
+        } else {
+            firstField = "*Status:*\nFailed :thumbsdown:"
+            secondField = "*Error:*\n" + result
+        }
+
+        const messageBlock = [
+            {
+                "type": "header",
+                "text": {
+                    "type": "plain_text",
+                    "text": "Create Lead",
+                    "emoji": true
+                }
+            },
+            {
+                "type": "section",
+                "fields": [
+                    {
+                        "type": "mrkdwn",
+                        "text": firstField
+                    },
+                    {
+                        "type": "mrkdwn",
+                        "text": secondField
+                    }
+                ]
+            }
+        ]
+
+        slackLogger(messageBlock);
+    }
+
 
 
     // Private function to set the defaults

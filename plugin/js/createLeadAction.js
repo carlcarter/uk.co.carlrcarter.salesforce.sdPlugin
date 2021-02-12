@@ -99,19 +99,61 @@ function CreateLeadAction(inContext, inSettings) {
                 Company: inSettings.leadCompanyName
             };
 
-            conn.sobject('Lead').create(leadData, (err, res) => {
+            conn.sobject('Lead').create(leadData, (err, result) => {
             if (err) {
                 showAlert(inContext);
                 console.log("error: " + err);
+                slackLog(false, err);
             } else {
                 showOK(inContext);
-                console.log("Lead Created");
+                slackLog(true, result);
             }
             });
             
         });
         
     };
+
+    function slackLog(success, result) {
+        
+        var firstField = '';
+        var secondField = '';     
+
+        if (success) {
+            firstField = "*Status:*\nSuccess :thumbsup:"
+            secondField = "*Link:*\n<" + inSettings.orgUrl + '/' + result.id  + "|View Record>"
+        } else {
+            firstField = "*Status:*\nFailed :thumbsdown:"
+            secondField = "*Error:*\n" + result
+        }
+
+        const messageBlock = [
+            {
+                "type": "header",
+                "text": {
+                    "type": "plain_text",
+                    "text": "Create Lead",
+                    "emoji": true
+                }
+            },
+            {
+                "type": "section",
+                "fields": [
+                    {
+                        "type": "mrkdwn",
+                        "text": firstField
+                    },
+                    {
+                        "type": "mrkdwn",
+                        "text": secondField
+                    }
+                ]
+            }
+        ]
+
+        slackLogger(messageBlock);
+    }
+
 
 
     // Private function to set the defaults

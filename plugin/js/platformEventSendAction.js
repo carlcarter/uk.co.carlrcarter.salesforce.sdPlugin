@@ -84,14 +84,55 @@ function PlatformEventSendAction(inContext, inSettings) {
                 if (err) {
                     showAlert(inContext);
                     console.log("error: " + err);
+                    slackLog(false, err);
                 } else {
                     showOK(inContext);
+                    slackLog(true, res);
                     console.log("Event published");}
                 });
         });
         
     };
 
+    function slackLog(success, result) {
+        
+        var firstField = '';
+        var secondField = '';     
+
+        if (success) {
+            firstField = "*Status:*\nSuccess :thumbsup:"
+            secondField = "*Id:*\n" + result.id
+        } else {
+            firstField = "*Status:*\nFailed :thumbsdown:"
+            secondField = "*Error:*\n" + result
+        }
+
+        const messageBlock = [
+            {
+                "type": "header",
+                "text": {
+                    "type": "plain_text",
+                    "text": "Platform Event Send",
+                    "emoji": true
+                }
+            },
+            {
+                "type": "section",
+                "fields": [
+                    {
+                        "type": "mrkdwn",
+                        "text": firstField
+                    },
+                    {
+                        "type": "mrkdwn",
+                        "text": secondField
+                    }
+                ]
+            }
+        ]
+
+        slackLogger(messageBlock);
+    }    
 
     // Private function to set the defaults
     function setDefaults() {

@@ -70,6 +70,7 @@ function GenericRestAPICallAction(inContext, inSettings) {
             
             if (err) { 
                 showAlert(inContext);
+                slackLog(false, err);
                 return console.error(err); 
             }
             // Now you can get the access token and instance URL information.
@@ -89,12 +90,43 @@ function GenericRestAPICallAction(inContext, inSettings) {
                 },
                 "body": inSettings.restPayload
             }).then(
-                result => {showOK(inContext), console.log(result);}, 
-                error => {showAlert(inContext), console.log(error);}
-            );
-
+                result => {
+                    showOK(inContext), 
+                    console.log(result)
+                    slackLog(true, result);}
+            )
         });
     };
+
+    function slackLog(success, result) {
+
+        const messageBlock = [
+            {
+                "type": "header",
+                "text": {
+                    "type": "plain_text",
+                    "text": "Platform Event Send",
+                    "emoji": true
+                }
+            },
+            {
+                "type": "section",
+                "fields": [
+                    {
+                        "type": "mrkdwn",
+                        "text": "*Status:*\n" + result.status
+                    },
+                    {
+                        "type": "mrkdwn",
+                        "text": "*Message:*\n" + result.statusText
+                    }
+                ]
+            }
+        ]
+
+        slackLogger(messageBlock);
+    }    
+
 
     // Private function to set the defaults
     function setDefaults() {
