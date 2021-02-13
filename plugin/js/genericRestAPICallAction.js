@@ -105,7 +105,7 @@ function GenericRestAPICallAction(inContext, inSettings) {
                 "type": "header",
                 "text": {
                     "type": "plain_text",
-                    "text": "Platform Event Send",
+                    "text": "Generic Rest Post Call",
                     "emoji": true
                 }
             },

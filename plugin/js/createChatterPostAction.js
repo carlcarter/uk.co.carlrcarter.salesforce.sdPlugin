@@ -131,7 +131,7 @@ function CreateChatterPostAction(inContext, inSettings) {
                 "type": "header",
                 "text": {
                     "type": "plain_text",
-                    "text": "Create Lead",
+                    "text": "Post To Chatter",
                     "emoji": true
                 }
             },
