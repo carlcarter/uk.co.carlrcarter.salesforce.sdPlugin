@@ -7,33 +7,6 @@
 
 const UrlPostMessage = 'https://slack.com/api/chat.postMessage';
 
-// Prototype which represents a scene action
-function CreateSlackMessage(inContext, inSettings) {
-
-    // Init SceneAction
-    var instance = this;
-
-
-
-
-
-}
-
-
-function slackError(inMessage) {
-
-
-
-
-
-}
-
-function slackMessageMarkdown(inMessage) {
-
-
-
-}
-
 function slackLogger(messageBlock) {
 
     const postData = {
